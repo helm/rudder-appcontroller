@@ -21,6 +21,7 @@ BINARIES  := rudder
 K8S_CLUSTER_MARKER = .k8s-cluster
 K8S_VERSION ?= v1.5
 HELM_BINARY_PATH ?= /tmp/
+APISERVER_PORT ?= 8080
 
 
 # Required for globs to work correctly
@@ -77,7 +78,7 @@ img-in-dind: docker-build $(K8S_CLUSTER_MARKER)
 .PHONY: e2e
 e2e: $(K8S_CLUSTER_MARKER) img-in-dind prepare-helm
 	go test -c -o e2e.test ./e2e/
-	PATH=$(PATH):$(HELM_BINARY_PATH)/linux-amd64 ./e2e.test --cluster-url=http://0.0.0.0:8080
+	PATH=$(PATH):$(HELM_BINARY_PATH)/linux-amd64 ./e2e.test --cluster-url=http://0.0.0.0:$(APISERVER_PORT)
 
 .PHONY: clean-all
 clean-all: clean clean-k8s

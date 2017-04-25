@@ -1,2 +1,9 @@
 bin
+e2e.test
+kubeadm-dind-cluster
 vendor
+.k8s-cluster
+# helm chart for e2e tests
+wordpress*
+
+rootfs/rudder
